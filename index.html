@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K & G's Farm House</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #080808; color: #f0f0f0; overflow-x: hidden; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3.5rem; background: rgba(8,8,8,0.92); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #1e1e1e; backdrop-filter: blur(12px); }
+  .logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.5px; color: #f5c842; display: flex; align-items: center; gap: 0.5rem; }
+  .logo-dot { width: 8px; height: 8px; background: #f5c842; border-radius: 50%; display: inline-block; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: #777; text-decoration: none; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: color 0.2s; }
+  .nav-links a:hover { color: #f5c842; }
+  .nav-cta { background: #f5c842; color: #080808; padding: 0.6rem 1.5rem; border-radius: 100px; font-weight: 700; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.2s; }
+  .nav-cta:hover { background: #fff; transform: scale(1.04); }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 6rem 3.5rem 4rem; position: relative; overflow: hidden; }
+  .hero-glow { position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(245,200,66,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-glow2 { position: absolute; bottom: -10%; right: -10%; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(245,200,66,0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.3); color: #f5c842; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem; width: fit-content; }
+  .hero-tag-dot { width: 6px; height: 6px; background: #f5c842; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .hero h1 { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -4px; max-width: 800px; color: #fff; margin-bottom: 1.8rem; }
+  .hero h1 .accent { color: #f5c842; display: block; }
+  .hero h1 .outline { -webkit-text-stroke: 2px #fff; color: transparent; }
+  .hero p { font-size: 1.1rem; color: #666; max-width: 440px; line-height: 1.75; margin-bottom: 3rem; }
+  .hero p strong { color: #aaa; font-weight: 600; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 4rem; }
+  .btn-primary { background: #f5c842; color: #080808; padding: 1rem 2.2rem; border-radius: 100px; font-weight: 700; text-decoration: none; font-size: 0.95rem; letter-spacing: 0.3px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-secondary { border: 1px solid #252525; color: #888; padding: 1rem 2rem; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.2s; display: inline-block; }
+  .btn-secondary:hover { border-color: #f5c842; color: #f5c842; }
+  .hero-marquee { border-top: 1px solid #1a1a1a; padding-top: 1.5rem; overflow: hidden; white-space: nowrap; position: relative; }
+  .marquee-track { display: inline-flex; gap: 3rem; animation: marquee 18s linear infinite; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee-item { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; color: #3a3a3a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .marquee-sep { color: #f5c842; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); background: #0e0e0e; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+  .stat { padding: 2.8rem 2rem; border-right: 1px solid #1a1a1a; position: relative; overflow: hidden; transition: background 0.3s; }
+  .stat:hover { background: #111; }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 3rem; font-weight: 900; color: #f5c842; letter-spacing: -3px; line-height: 1; }
+  .stat-label { font-size: 0.75rem; color: #444; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.4rem; font-weight: 600; }
+  .stat-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: #f5c842; width: 0; transition: width 0.8s ease; }
+  .stat:hover .stat-bar { width: 100%; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; padding: 7rem 3.5rem; gap: 5rem; align-items: center; border-bottom: 1px solid #1a1a1a; }
+  .about-visual { background: #0e0e0e; border: 1px solid #1e1e1e; border-radius: 16px; height: 380px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .about-visual-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14rem; opacity: 0.07; user-select: none; }
+  .about-visual-inner { position: relative; text-align: center; }
+  .big-chicken { font-size: 7rem; display: block; filter: drop-shadow(0 0 40px rgba(245,200,66,0.4)); animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .about-badge { background: #f5c842; color: #080808; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 100px; display: inline-block; margin-top: 1rem; }
+  .section-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: #f5c842; margin-bottom: 1rem; font-weight: 700; }
+  .about-text h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 1.25rem; line-height: 1.1; }
+  .about-text p { color: #666; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .about-text p strong { color: #999; font-weight: 600; }
+  .check-list { list-style: none; margin: 1.5rem 0 2rem; }
+  .check-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; color: #777; padding: 0.5rem 0; border-bottom: 1px solid #141414; font-weight: 500; }
+  .check-list li:last-child { border-bottom: none; }
+  .check-icon { width: 20px; height: 20px; background: rgba(245,200,66,0.12); border: 1px solid rgba(245,200,66,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #f5c842; flex-shrink: 0; }
+
+  .breeds { padding: 7rem 3.5rem; border-bottom: 1px solid #1a1a1a; }
+  .breeds-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .breeds-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; line-height: 1.1; }
+  .breeds-link { color: #f5c842; font-size: 0.82rem; text-decoration: none; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(245,200,66,0.3); padding-bottom: 2px; transition: border-color 0.2s; }
+  .breeds-link:hover { border-color: #f5c842; }
+  .breeds-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; }
+  .breed-card { background: #0a0a0a; padding: 2rem 1.75rem; transition: background 0.2s; cursor: default; position: relative; overflow: hidden; }
+  .breed-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,200,66,0.04) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+  .breed-card:hover { background: #0e0e0e; }
+  .breed-card:hover::before { opacity: 1; }
+  .breed-num { font-size: 0.65rem; font-weight: 700; color: #2a2a2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.25rem; }
+  .breed-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; transition: transform 0.3s; }
+  .breed-card:hover .breed-emoji { transform: scale(1.1) rotate(-5deg); }
+  .breed-card h3 { font-size: 1.05rem; font-weight: 700; color: #e0e0e0; margin-bottom: 0.5rem; }
+  .breed-card p { font-size: 0.82rem; color: #555; line-height: 1.6; margin-bottom: 1rem; }
+  .breed-tag { display: inline-block; background: #141414; border: 1px solid #222; color: #f5c842; font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 100px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+  .process { padding: 7rem 3.5rem; border-bottom: 1px solid #1a1a1a; }
+  .process h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 3.5rem; line-height: 1.1; max-width: 400px; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .steps::before { content: ''; position: absolute; top: 1.25rem; left: calc(12.5% + 1rem); right: calc(12.5% + 1rem); height: 1px; background: #1e1e1e; z-index: 0; }
+  .step { padding: 0 1.5rem 0 0; position: relative; z-index: 1; }
+  .step-num { width: 40px; height: 40px; background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #f5c842; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+  .step h3 { font-size: 0.95rem; font-weight: 700; color: #ddd; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.82rem; color: #555; line-height: 1.6; }
+
+  .testimonial { padding: 7rem 3.5rem; background: #f5c842; }
+  .testimonial-inner { max-width: 800px; margin: 0 auto; }
+  .quote-mark { font-size: 5rem; line-height: 0.6; color: rgba(0,0,0,0.15); font-weight: 900; margin-bottom: 1.5rem; display: block; }
+  .testimonial blockquote { font-size: clamp(1.5rem, 2.8vw, 2.4rem); font-weight: 800; color: #080808; line-height: 1.25; letter-spacing: -1px; margin-bottom: 2rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+  .author-avatar { width: 44px; height: 44px; background: rgba(0,0,0,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; color: #080808; }
+  .author-info { font-size: 0.82rem; color: rgba(0,0,0,0.5); font-weight: 700; letter-spacing: 0.5px; }
+  .author-info strong { color: #080808; display: block; font-size: 0.9rem; }
+
+  .cta-section { padding: 8rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
+  .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(245,200,66,0.1) 0%, transparent 70%); pointer-events: none; }
+  .cta-section h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; letter-spacing: -3px; color: #fff; margin-bottom: 1rem; line-height: 1; }
+  .cta-section h2 em { color: #f5c842; font-style: normal; }
+  .cta-section p { color: #555; font-size: 1rem; margin-bottom: 3rem; }
+  .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .cta-phone { display: inline-flex; align-items: center; gap: 0.75rem; border: 1px solid #252525; color: #888; padding: 1rem 2rem; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.2s; }
+  .cta-phone:hover { border-color: #f5c842; color: #f5c842; }
+
+  .order-section { padding: 7rem 3.5rem; border-top: 1px solid #1a1a1a; }
+  .order-section h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 0.75rem; line-height: 1.1; }
+  .order-section .sub { color: #555; font-size: 0.95rem; margin-bottom: 3rem; }
+  .order-form { max-width: 600px; display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #555; }
+  .form-group input, .form-group select { background: #0e0e0e; border: 1px solid #222; color: #e0e0e0; padding: 0.9rem 1rem; border-radius: 8px; font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; outline: none; width: 100%; }
+  .form-group input:focus, .form-group select:focus { border-color: #f5c842; }
+  .form-group input::placeholder { color: #333; }
+  .form-group select option { background: #0e0e0e; }
+  .form-btns { display: flex; gap: 1rem; flex-wrap: wrap; padding-top: 0.5rem; }
+  .btn-wa { background: #25D366; color: #fff; padding: 1rem 2rem; border-radius: 100px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+  .btn-email { background: transparent; border: 1px solid #252525; color: #888; padding: 1rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .btn-email:hover { border-color: #f5c842; color: #f5c842; }
+
+  .wa-float { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
+  .wa-tooltip { background: #111; border: 1px solid #222; color: #ddd; font-size: 0.82rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 100px; white-space: nowrap; opacity: 0; transform: translateX(10px); transition: all 0.3s; pointer-events: none; }
+  .wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+  .wa-btn { width: 58px; height: 58px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 24px rgba(37,211,102,0.35); transition: transform 0.2s, box-shadow 0.2s; animation: wa-pulse 3s ease-in-out infinite; }
+  .wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(37,211,102,0.5); }
+  .wa-btn svg { width: 30px; height: 30px; fill: #fff; }
+  @keyframes wa-pulse { 0%,100%{box-shadow:0 4px 24px rgba(37,211,102,0.35)} 50%{box-shadow:0 4px 32px rgba(37,211,102,0.6)} }
+
+
+  .faq-section h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 3rem; line-height: 1.1; }
+  .faq-list { max-width: 760px; }
+  .faq-item { border-bottom: 1px solid #1a1a1a; }
+  .faq-question { width: 100%; background: none; border: none; color: #ddd; font-size: 1rem; font-weight: 600; text-align: left; padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: inherit; transition: color 0.2s; }
+  .faq-question:hover { color: #f5c842; }
+  .faq-icon { font-size: 1.4rem; color: #f5c842; flex-shrink: 0; transition: transform 0.3s; font-weight: 300; line-height: 1; }
+  .faq-answer { font-size: 0.9rem; color: #666; line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+  .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-item.open .faq-question { color: #f5c842; }
+
+  .map-section { padding: 7rem 3.5rem; border-top: 1px solid #1a1a1a; }
+  .map-section h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 0.75rem; line-height: 1.1; }
+  .map-section .sub { color: #555; font-size: 0.95rem; margin-bottom: 2.5rem; }
+  .map-wrapper { border-radius: 16px; overflow: hidden; border: 1px solid #1e1e1e; width: 100%; height: 420px; }
+  .map-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .video-section { padding: 7rem 3.5rem; border-top: 1px solid #1a1a1a; }
+  .video-section h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 0.75rem; line-height: 1.1; }
+  .video-section .sub { color: #555; font-size: 0.95rem; margin-bottom: 2.5rem; }
+  .video-wrapper { position: relative; width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid #1e1e1e; background: #0e0e0e; }
+  .video-wrapper video { width: 100%; display: block; max-height: 560px; object-fit: cover; }
+
+  .contact-section { padding: 7rem 3.5rem; border-top: 1px solid #1a1a1a; }
+  .contact-section .section-label { margin-bottom: 0.75rem; }
+  .contact-section h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin-bottom: 3rem; line-height: 1.1; }
+  .contact-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; }
+  .contact-card { background: #0a0a0a; padding: 2rem 1.5rem; transition: background 0.2s; }
+  .contact-card:hover { background: #0e0e0e; }
+  .contact-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .contact-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #444; margin-bottom: 0.5rem; }
+  .contact-value { font-size: 0.88rem; color: #aaa; font-weight: 500; line-height: 1.6; text-decoration: none; display: block; transition: color 0.2s; }
+  a.contact-value:hover { color: #f5c842; }
+
+  footer { padding: 2rem 3.5rem; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.78rem; color: #333; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: #333; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: #f5c842; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="logo-dot"></span> K & G's Farm House</div>
+  <ul class="nav-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Our Birds</a></li>
+    <li><a href="#">Process</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Order Now →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-tag"><span class="hero-tag-dot"></span> Now taking orders</div>
+  <h1>
+    <span>Premium</span>
+    <span class="accent">Live White</span>
+    <span class="outline">Chickens.</span>
+  </h1>
+  <p>Healthy, free-range broiler chickens raised with care at K & G's Farm House. <strong>Direct from farm to you</strong> — no middleman, no compromise.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">Order Your Birds →</a>
+    <a href="#" class="btn-secondary">See Our Breeds</a>
+  </div>
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">🐔 Free-Range Raised <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">🌿 Natural Feed <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">✅ Quality Guaranteed <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">⚡ Ready Immediately <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">🏡 KwaZulu-Natal Farm <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">🐔 Free-Range Raised <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">🌿 Natural Feed <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">✅ Quality Guaranteed <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">⚡ Ready Immediately <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">🏡 KwaZulu-Natal Farm <span class="marquee-sep">✦</span></span>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">50</div><div class="stat-label">Birds Available</div><div class="stat-bar"></div></div>
+  <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Est. June 2026</div><div class="stat-bar"></div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free-Range</div><div class="stat-bar"></div></div>
+  <div class="stat"><div class="stat-num">Now</div><div class="stat-label">Ready Immediately</div><div class="stat-bar"></div></div>
+</div>
+
+<section class="about">
+  <div class="about-visual" style="padding:0; overflow:hidden;">
+    <img src="chickens.jpg" alt="K & G's Farm House broiler chickens" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+  <div class="about-text">
+    <div class="section-label">Our Story</div>
+    <h2>Born from a passion for quality farming.</h2>
+    <p>K & G's Farm House started with a simple belief: <strong>healthy chickens start with proper care.</strong> Established in June 2026, we are proudly serving the Kimberley community with quality live broiler chickens direct from our farm.</p>
+    <p>Every bird is raised on open pasture, fed natural grain, and given the space to grow strong and healthy.</p>
+    <ul class="check-list">
+      <li><span class="check-icon">✓</span> No hormones or artificial supplements</li>
+      <li><span class="check-icon">✓</span> Open-range, stress-free environment</li>
+      <li><span class="check-icon">✓</span> Individual inspection before every sale</li>
+      <li><span class="check-icon">✓</span> Locally owned and operated</li>
+    </ul>
+    <a href="#" class="btn-primary">Learn More →</a>
+  </div>
+</section>
+
+<section class="breeds">
+  <div class="breeds-header">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2>Our white<br>chicken breeds.</h2>
+    </div>
+    <a href="#" class="breeds-link">View all breeds →</a>
+  </div>
+  <div style="border-radius:16px; overflow:hidden; border:1px solid #1e1e1e; margin-bottom:2.5rem; height:280px;">
+    <img src="chickens.jpg" alt="Our broiler chickens" style="width:100%; height:100%; object-fit:cover; object-position: center 40%; display:block;" />
+  </div>
+  <div class="breeds-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="breed-card">
+      <div class="breed-num">01</div>
+      <span class="breed-emoji">🐔</span>
+      <h3>Broiler Chicken</h3>
+      <p>Fast-growing, well-muscled birds raised on open pasture. Available at peak health and weight — the best quality live broilers in Kimberley.</p>
+      <span class="breed-tag">Available Now</span>
+    </div>
+    <div class="breed-card">
+      <div class="breed-num">02</div>
+      <span class="breed-emoji">🐣</span>
+      <h3>Day-Old Broiler Chicks</h3>
+      <p>Looking to raise your own? We also supply healthy day-old broiler chicks. Contact us for current availability and pricing.</p>
+      <span class="breed-tag">Ask Us</span>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-label">How It Works</div>
+  <h2>From farm to<br>your hands.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Place Your Order</h3>
+      <p>Contact us via WhatsApp or phone. Tell us your breed preference and quantity needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We Prepare</h3>
+      <p>We select and inspect your birds personally. Only healthy, full-grown chickens leave the farm.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Ready Immediately</h3>
+      <p>Your order is ready for collection right away — no waiting around.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Collect & Enjoy</h3>
+      <p>Come to the farm and take home quality birds you can trust. Simple as that.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <span class="quote-mark">"</span>
+    <blockquote>K & G's chickens are the healthiest birds I've ever bought. You can see the quality the moment you set eyes on them.</blockquote>
+    <div class="testimonial-author">
+      <div class="author-avatar">SM</div>
+      <div class="author-info"><strong>Sipho Mthembu</strong>Regular Customer, Howick</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <h2>Ready to order<br><em>fresh birds?</em></h2>
+  <p>Get in touch — your chickens are ready for collection immediately.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/27836402856" class="btn-primary">Order on WhatsApp →</a>
+    <a href="tel:+27783775596" class="cta-phone">📞 078 377 5596</a>
+  </div>
+</section>
+
+<section class="order-section">
+  <div class="section-label">Place An Order</div>
+  <h2>Order your chickens.</h2>
+  <p class="sub">Fill in your details and send your order via WhatsApp or Email — we'll confirm right away.</p>
+  <div class="order-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="e.g. Sipho Mthembu" />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. 078 123 4567" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="breed">Breed</label>
+        <select id="breed">
+          <option value="">Select a breed</option>
+          <option value="Broiler Chicken">Broiler Chicken</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" placeholder="e.g. 10" min="1" />
+      </div>
+    </div>
+    <div class="form-btns">
+      <button class="btn-wa" onclick="sendWhatsApp()">💬 Send via WhatsApp</button>
+      <button class="btn-email" onclick="sendEmail()">✉️ Send via Email</button>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="section-label">FAQ</div>
+  <h2>Common questions.</h2>
+  <div class="faq-list">
+
+    <div class="faq-item open">
+      <button class="faq-question">How do I place an order? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Simply call us on 078 377 5596 or send us a WhatsApp message on 083 640 2856. Let us know which breed you want and how many birds you need — it's that easy.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Do you deliver or is it collection only? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Currently we offer collection from our farm at 22194 Otto Street, Homestead, Kimberley. Contact us to discuss delivery options for large orders.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">What sizes of chickens are available? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">We have chickens at various stages — from young birds to fully grown adults. Contact us and we'll match you with the right size for your needs.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Are your chickens free-range? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Yes, 100%. All our birds are raised on open pasture with natural feed. No hormones, no artificial supplements — just healthy, happy chickens.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">What breeds do you sell? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">We specialise in broiler chickens — healthy, fast-growing birds raised on open pasture. Contact us to check current availability and stock levels.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">What are your operating hours? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">We are open every day from 06:00 AM to 08:00 PM. You can also send us a WhatsApp message at any time and we'll get back to you.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Can I buy in bulk? <span class="faq-icon">+</span></button>
+      <div class="faq-answer">Absolutely. We cater for both small and large orders. Give us a call or WhatsApp to discuss bulk pricing and availability.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="map-section">
+  <div class="section-label">Find Us</div>
+  <h2>Visit the farm.</h2>
+  <p class="sub">22194 Otto Street, Homestead, Kimberley, 8301 · Open 06:00 AM – 08:00 PM daily</p>
+  <div class="map-wrapper">
+    <iframe
+      src="https://maps.google.com/maps?q=22194+Otto+Street+Homestead+Kimberley+8301+South+Africa&output=embed"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="section-label">See For Yourself</div>
+  <h2>Our chickens, up close.</h2>
+  <p class="sub">Healthy, free-range broiler chickens raised right here at K & G's Farm House.</p>
+  <div class="video-wrapper">
+    <video controls playsinline poster="">
+      <source src="chickens.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="section-label">Get In Touch</div>
+  <h2>Contact Us</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Call Us</div>
+      <a href="tel:+27783775596" class="contact-value">078 377 5596</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div class="contact-label">WhatsApp</div>
+      <a href="https://wa.me/27836402856" class="contact-value">083 640 2856</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <a href="mailto:kopanotshabangu@gmail.com" class="contact-value">kopanotshabangu@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-label">Address</div>
+      <span class="contact-value">22194 Otto Street, Homestead<br>Kimberley, 8301</span>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🕐</div>
+      <div class="contact-label">Business Hours</div>
+      <span class="contact-value">Mon – Sun<br>06:00 AM – 08:00 PM</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 K & G's Farm House · 22194 Otto Street, Kimberley, 8301</p>
+  <div class="footer-links">
+    <a href="tel:+27783775596">Call Us</a>
+    <a href="https://wa.me/27836402856">WhatsApp</a>
+    <a href="mailto:kopanotshabangu@gmail.com">Email</a>
+  </div>
+</footer>
+
+<div class="wa-float">
+  <span class="wa-tooltip">Chat with us on WhatsApp</span>
+  <a href="https://wa.me/27836402856?text=Hi%20K%20%26%20G's%20Farm%20House%2C%20I%20would%20like%20to%20order%20some%20chickens." class="wa-btn" target="_blank" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  function getFormData() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const breed = document.getElementById('breed').value;
+    const quantity = document.getElementById('quantity').value.trim();
+    if (!name || !phone || !breed || !quantity) {
+      alert('Please fill in all fields before sending.');
+      return null;
+    }
+    return { name, phone, breed, quantity };
+  }
+
+  function sendWhatsApp() {
+    const d = getFormData();
+    if (!d) return;
+    const msg = `Hi K & G's Farm House! I'd like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}`;
+    window.open(`https://wa.me/27836402856?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function sendEmail() {
+    const d = getFormData();
+    if (!d) return;
+    const subject = `Chicken Order from ${d.name}`;
+    const body = `Hi K & G's Farm House,\n\nI would like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}\n\nPlease confirm my order. Thank you!`;
+    window.location.href = `mailto:kopanotshabangu@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
