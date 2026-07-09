@@ -577,15 +577,15 @@ function sendWhatsApp() {
   const d = getFormData();
   if (!d) return;
 
-  gtag('event', 'generate_lead', {
-    value: 150,
-    currency: 'ZAR'
+  gtag('event', 'conversion', {
+    'send_to': 'AW-18248342540'
   });
 
   const msg = `Hi K & G's Farm House! I'd like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}`;
 
   window.open(`https://wa.me/27836402856?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
 
 
   function sendEmail() {
