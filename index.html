@@ -571,12 +571,15 @@ kopanotshabangu@gmail.com</a>
     return { name, phone, breed, quantity };
   }
 
+
 function sendWhatsApp() {
   const d = getFormData();
   if (!d) return;
 
   gtag('event', 'conversion', {
-    'send_to': 'AW-18248342540'
+    'send_to': 'AW-18248342540/O_OKCPyI4M0cEIy4vv1D',
+    'value': 1.0,
+    'currency': 'ZAR'
   });
 
   const msg = `Hi K & G's Farm House! I'd like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}`;
