@@ -523,7 +523,11 @@ https://www.googletagmanager.com/gtag/js?id=AW-18248342540>
     <div class="contact-card">
       <div class="contact-icon">✉️</div>
       <div class="contact-label">Email</div>
-      <a href="mailto:kopanotshabangu@gmail.com" class="contact-value">kopanotshabangu@gmail.com</a>
+      
+<a href="mailto:kopanotshabangu@gmail.com"
+   class="contact-value"
+   onclick="gtag('event','email_contact');">
+kopanotshabangu@gmail.com</a>
     </div>
     <div class="contact-card">
       <div class="contact-icon">📍</div>
@@ -541,7 +545,7 @@ https://www.googletagmanager.com/gtag/js?id=AW-18248342540>
 <footer>
   <p>© 2026 K & G's Farm House · 22194 Otto Street, Kimberley, 8301</p>
   <div class="footer-links">
-    <a href="tel:+27783775596">Call Us</a>
+    <a href="">Call Ustel:+27783775596</a>
     <a href="https://wa.me/27836402856">WhatsApp</a>
     <a href="mailto:kopanotshabangu@gmail.com">Email</a>
   </div>
@@ -569,12 +573,21 @@ https://www.googletagmanager.com/gtag/js?id=AW-18248342540>
     return { name, phone, breed, quantity };
   }
 
-  function sendWhatsApp() {
-    const d = getFormData();
-    if (!d) return;
-    const msg = `Hi K & G's Farm House! I'd like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}`;
-    window.open(`https://wa.me/27836402856?text=${encodeURIComponent(msg)}`, '_blank');
-  }
+ 
+function sendWhatsApp() {
+  const d = getFormData();
+  if (!d) return;
+
+  gtag('event', 'generate_lead', {
+    value: 150,
+    currency: 'ZAR'
+  });
+
+  const msg = `Hi K & G's Farm House! I'd like to place an order.\n\nName: ${d.name}\nPhone: ${d.phone}\nBreed: ${d.breed}\nQuantity: ${d.quantity}`;
+
+  window.open(`https://wa.me/27836402856?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
 
   function sendEmail() {
     const d = getFormData();
